@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark text-gray-300 font-inter antialiased overflow-x-hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-space;
+  }
+}
+
+@layer utilities {
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary;
+  }
+  /* Purple gradient text for hero name */
+  .gradient-text-purple {
+    background: linear-gradient(130deg, #ffffff 0%, #e9d5ff 35%, #a855f7 65%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  .glass-purple {
+    background: rgba(120, 40, 220, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+  }
+  .glow {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+  }
+  .glow-purple {
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.55);
+  }
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+  }
+  .glow-purple-hover:hover {
+    box-shadow: 0 0 50px rgba(168, 85, 247, 0.85), 0 0 20px rgba(168, 85, 247, 0.4) inset;
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #070012; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #7c3aed, #a855f7);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+
+/* ── Text selection ── */
+::selection { background: rgba(168, 85, 247, 0.35); color: #fff; }
+
+/* ── Keyframes ── */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   rgba(168, 85, 247, 0.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(168, 85, 247, 0);   }
+  100% { box-shadow: 0 0 0 0   rgba(168, 85, 247, 0);   }
+}
+.animate-pulse-ring { animation: pulse-ring 2s infinite; }
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.shimmer-text {
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px);    }
+  50%       { transform: translateY(-12px);  }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
