@@ -7,6 +7,7 @@ import { TechIcon } from '../ui/TechIcon';
 import { Code2, Layers, Cpu, Database, Sparkles, X, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 import { scrollToSection } from '../../hooks/useLenis';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { GradientBorderCard } from '../ui/GradientBorderCard';
 
 interface Ripple {
   id: number;
@@ -110,6 +111,7 @@ const categoryMeta = {
     gradient: 'from-cyan-500/20 to-blue-500/10',
     border: 'hover:border-cyan-400/40',
     color: '#00D4FF',
+    secondaryColor: '#3B82F6',
   },
   FRAMEWORK: {
     title: 'Frameworks',
@@ -117,6 +119,7 @@ const categoryMeta = {
     gradient: 'from-purple-500/20 to-indigo-500/10',
     border: 'hover:border-purple-400/40',
     color: '#A855F7',
+    secondaryColor: '#EC4899',
   },
   TOOL: {
     title: 'Tools & DevOps',
@@ -124,6 +127,7 @@ const categoryMeta = {
     gradient: 'from-emerald-500/20 to-teal-500/10',
     border: 'hover:border-emerald-400/40',
     color: '#10B981',
+    secondaryColor: '#06B6D4',
   },
   DATABASE: {
     title: 'Databases',
@@ -131,6 +135,7 @@ const categoryMeta = {
     gradient: 'from-amber-500/20 to-orange-500/10',
     border: 'hover:border-amber-400/40',
     color: '#F59E0B',
+    secondaryColor: '#EF4444',
   },
 };
 
@@ -256,72 +261,78 @@ export const Skills: React.FC = () => {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.92, y: -20 }}
                     transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                    className={`glass rounded-2xl p-6 border border-white/10 ${meta.border} transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)] group relative overflow-hidden flex flex-col justify-between h-full`}
+                    className="h-full"
                   >
-                  {/* Subtle card top gradient accent */}
-                  <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${meta.gradient}`} />
+                    <GradientBorderCard
+                      color={meta.color}
+                      secondaryColor={meta.secondaryColor}
+                      className="h-full"
+                    >
+                      {/* Subtle card top gradient accent */}
+                      <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${meta.gradient}`} />
 
-                  <div>
-                    {/* Category Header */}
-                    <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/5">
-                      <div className="flex items-center gap-2.5">
-                        <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                          {meta.icon}
+                      <div>
+                        {/* Category Header */}
+                        <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/5">
+                          <div className="flex items-center gap-2.5">
+                            <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
+                              {meta.icon}
+                            </div>
+                            <h3 className="text-base font-bold text-white font-space tracking-wide">
+                              {meta.title}
+                            </h3>
+                          </div>
+                          <span className="text-[11px] font-medium text-gray-400 px-2 py-0.5 rounded-full bg-white/5 border border-white/5">
+                            {categorySkills.length} Tech
+                          </span>
                         </div>
-                        <h3 className="text-base font-bold text-white font-space tracking-wide">
-                          {meta.title}
-                        </h3>
+
+                        {/* Skill Badges inside Card */}
+                        <div className="flex flex-wrap gap-2.5">
+                          {categorySkills.map((skill) => {
+                            const isSelected = selectedSkill?.id === skill.id;
+
+                            return (
+                              <motion.button
+                                key={skill.id}
+                                onClick={(e) => handleSkillClick(skill, e)}
+                                whileHover={{ scale: 1.07, y: -2 }}
+                                whileTap={{ scale: 0.93 }}
+                                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                                className={`relative px-3 py-2 rounded-xl border flex items-center gap-2 text-left cursor-pointer transition-all duration-200 select-none overflow-hidden ${
+                                  isSelected
+                                    ? 'bg-primary/25 border-primary shadow-[0_0_20px_rgba(0,212,255,0.45)] text-white'
+                                    : 'bg-white/[0.04] border-white/10 hover:border-primary/40 hover:bg-white/[0.08] text-gray-300 hover:text-white shadow-sm'
+                                }`}
+                              >
+                                {/* Crisp Authentic Vector SVG Brand Icon */}
+                                <TechIcon name={skill.name} size={18} className="shrink-0" />
+
+                                <span className="text-xs font-semibold font-space tracking-tight">
+                                  {skill.name}
+                                </span>
+
+                                {/* Mini Proficiency Dot / Ring */}
+                                <span
+                                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                                  style={{
+                                    backgroundColor: isSelected ? '#00D4FF' : 'rgba(255,255,255,0.3)',
+                                    boxShadow: isSelected ? '0 0 8px #00D4FF' : 'none',
+                                  }}
+                                />
+                              </motion.button>
+                            );
+                          })}
+                        </div>
                       </div>
-                      <span className="text-[11px] font-medium text-gray-400 px-2 py-0.5 rounded-full bg-white/5 border border-white/5">
-                        {categorySkills.length} Tech
-                      </span>
-                    </div>
 
-                    {/* Skill Badges inside Card */}
-                    <div className="flex flex-wrap gap-2.5">
-                      {categorySkills.map((skill) => {
-                        const isSelected = selectedSkill?.id === skill.id;
-
-                        return (
-                          <motion.button
-                            key={skill.id}
-                            onClick={(e) => handleSkillClick(skill, e)}
-                            whileHover={{ scale: 1.07, y: -2 }}
-                            whileTap={{ scale: 0.93 }}
-                            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-                            className={`relative px-3 py-2 rounded-xl border flex items-center gap-2 text-left cursor-pointer transition-all duration-200 select-none overflow-hidden ${
-                              isSelected
-                                ? 'bg-primary/25 border-primary shadow-[0_0_20px_rgba(0,212,255,0.45)] text-white'
-                                : 'bg-white/[0.04] border-white/10 hover:border-primary/40 hover:bg-white/[0.08] text-gray-300 hover:text-white shadow-sm'
-                            }`}
-                          >
-                            {/* Crisp Authentic Vector SVG Brand Icon */}
-                            <TechIcon name={skill.name} size={18} className="shrink-0" />
-
-                            <span className="text-xs font-semibold font-space tracking-tight">
-                              {skill.name}
-                            </span>
-
-                            {/* Mini Proficiency Dot / Ring */}
-                            <span
-                              className="w-1.5 h-1.5 rounded-full shrink-0"
-                              style={{
-                                backgroundColor: isSelected ? '#00D4FF' : 'rgba(255,255,255,0.3)',
-                                boxShadow: isSelected ? '0 0 8px #00D4FF' : 'none',
-                              }}
-                            />
-                          </motion.button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Card Footer Hint */}
-                  <div className="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-500">
-                    <span>Click any skill to inspect</span>
-                    <Sparkles size={12} className="text-primary/70" />
-                  </div>
-                </motion.div>
+                      {/* Card Footer Hint */}
+                      <div className="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-500">
+                        <span>Click any skill to inspect</span>
+                        <Sparkles size={12} className="text-primary/70" />
+                      </div>
+                    </GradientBorderCard>
+                  </motion.div>
               </ScrollReveal>
             );
             })}
