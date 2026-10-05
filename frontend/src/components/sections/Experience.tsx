@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { SectionTitle } from '../ui/SectionTitle';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { GradientBorderCard } from '../ui/GradientBorderCard';
 import { getExperiences } from '../../services/api';
 import { Experience as ExpType } from '../../types';
 import { Briefcase } from 'lucide-react';
@@ -63,12 +64,19 @@ export const Experience = () => {
                     delay={0.08}
                     className={`w-full md:w-1/2 pl-16 md:pl-12 ${isLeft ? 'md:pr-12 md:pl-0 text-left md:text-right' : ''}`}
                   >
-                    <div className="glass p-8 rounded-2xl hover:border-primary/30 transition-colors group">
+                    <GradientBorderCard
+                      color={index === 0 ? '#00D4FF' : index === 1 ? '#A855F7' : '#10B981'}
+                      secondaryColor={index === 0 ? '#3B82F6' : index === 1 ? '#EC4899' : '#06B6D4'}
+                      className="w-full"
+                      innerClassName={`p-8 flex flex-col justify-between ${isLeft ? 'md:items-end md:text-right' : 'md:items-start md:text-left'}`}
+                    >
                       <div className={`flex flex-col ${isLeft ? 'md:items-end' : 'md:items-start'} mb-4`}>
                         <span className="text-primary font-space text-sm font-bold tracking-wider mb-2">
                           {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
                         </span>
-                        <h3 className="text-2xl font-bold text-white mb-1">{exp.position}</h3>
+                        <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                          {exp.position}
+                        </h3>
                         <h4 className="text-lg text-gray-400 font-medium">{exp.company}</h4>
                       </div>
                       
@@ -83,7 +91,7 @@ export const Experience = () => {
                           </span>
                         ))}
                       </div>
-                    </div>
+                    </GradientBorderCard>
                   </ScrollReveal>
 
                 </div>
