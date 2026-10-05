@@ -190,6 +190,42 @@ export const Navbar: React.FC = () => {
                   />
                 )}
 
+                {/* Converging Animated Gradient Border on Hover */}
+                {isHovered && !isActive && (
+                  <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none -z-0">
+                    <motion.div
+                      initial={{ width: '0%', opacity: 0 }}
+                      animate={{ width: '50.5%', opacity: 1 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute top-0 left-0 h-[1.5px] rounded-l-full bg-gradient-to-r from-primary via-white to-primary shadow-[0_0_8px_#00D4FF]"
+                    />
+                    <motion.div
+                      initial={{ width: '0%', opacity: 0 }}
+                      animate={{ width: '50.5%', opacity: 1 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute top-0 right-0 h-[1.5px] rounded-r-full bg-gradient-to-l from-secondary via-white to-secondary shadow-[0_0_8px_#A855F7]"
+                    />
+                    <motion.div
+                      initial={{ width: '0%', opacity: 0 }}
+                      animate={{ width: '50.5%', opacity: 1 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute bottom-0 left-0 h-[1.5px] rounded-l-full bg-gradient-to-r from-primary via-white to-primary shadow-[0_0_8px_#00D4FF]"
+                    />
+                    <motion.div
+                      initial={{ width: '0%', opacity: 0 }}
+                      animate={{ width: '50.5%', opacity: 1 }}
+                      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute bottom-0 right-0 h-[1.5px] rounded-r-full bg-gradient-to-l from-secondary via-white to-secondary shadow-[0_0_8px_#A855F7]"
+                    />
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.22, delay: 0.14 }}
+                      className="absolute inset-0 rounded-full border border-primary/40 shadow-[0_0_12px_rgba(0,212,255,0.3)]"
+                    />
+                  </div>
+                )}
+
                 {/* Link label with subtle glowing dot if active */}
                 <span className="relative z-10 flex items-center gap-1.5">
                   {link.name}

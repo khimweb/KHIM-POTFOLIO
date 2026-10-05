@@ -6,6 +6,7 @@ interface GradientBorderCardProps {
   color?: string;
   secondaryColor?: string;
   className?: string;
+  innerClassName?: string;
 }
 
 export const GradientBorderCard: React.FC<GradientBorderCardProps> = ({
@@ -13,6 +14,7 @@ export const GradientBorderCard: React.FC<GradientBorderCardProps> = ({
   color = '#00D4FF',
   secondaryColor = '#A855F7',
   className = '',
+  innerClassName = '',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -189,7 +191,11 @@ export const GradientBorderCard: React.FC<GradientBorderCardProps> = ({
       </div>
 
       {/* ── 3. Inner Card Surface ── */}
-      <div className="relative z-10 w-full h-full rounded-[14px] bg-[#0c0817]/95 backdrop-blur-xl overflow-hidden flex flex-col justify-between p-6">
+      <div
+        className={`relative z-10 w-full h-full rounded-[14px] bg-[#0c0817]/95 backdrop-blur-xl overflow-hidden flex flex-col ${
+          innerClassName || 'justify-between p-6'
+        }`}
+      >
         {children}
       </div>
     </div>

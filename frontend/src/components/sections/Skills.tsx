@@ -8,6 +8,7 @@ import { Code2, Layers, Cpu, Database, Sparkles, X, ArrowRight, Zap, CheckCircle
 import { scrollToSection } from '../../hooks/useLenis';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { GradientBorderCard } from '../ui/GradientBorderCard';
+import { GradientBorderButton } from '../ui/GradientBorderButton';
 
 interface Ripple {
   id: number;
@@ -201,36 +202,14 @@ export const Skills: React.FC = () => {
             {filterCategories.map((tab) => {
               const isActive = selectedCategory === tab.key;
               return (
-                <motion.button
+                <GradientBorderButton
                   key={tab.key}
-                  onClick={(e) => {
-                    triggerRipple(e, '#00D4FF');
-                    setSelectedCategory(tab.key);
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-colors duration-200 select-none cursor-pointer flex items-center gap-1.5 ${
-                    isActive ? 'text-white font-semibold' : 'text-gray-400 hover:text-gray-200 bg-white/[0.03] border border-white/5 hover:border-white/10'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeSkillCategoryPill"
-                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/30 via-secondary/30 to-primary/30 border border-primary/50 shadow-[0_0_20px_rgba(0,212,255,0.4)]"
-                    />
-                  )}
-                  <span className="relative z-10">{tab.label}</span>
-                  {tab.count > 0 && (
-                    <span
-                      className={`relative z-10 text-[10px] px-1.5 py-0.2 rounded-full ${
-                        isActive ? 'bg-primary/30 text-cyan-200 font-bold' : 'bg-white/10 text-gray-400'
-                      }`}
-                    >
-                      {tab.count}
-                    </span>
-                  )}
-                </motion.button>
+                  label={tab.label}
+                  count={tab.count}
+                  isActive={isActive}
+                  layoutId="activeSkillCategoryPill"
+                  onClick={() => setSelectedCategory(tab.key)}
+                />
               );
             })}
           </div>
